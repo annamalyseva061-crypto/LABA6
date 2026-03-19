@@ -1,0 +1,49 @@
+using System;
+
+namespace Task21_CyclicShift
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Задание 21. Циклический сдвиг";
+            
+            Console.Write("Введите длину массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            Console.Write("Введите величину сдвига m: ");
+            int m = int.Parse(Console.ReadLine());
+            
+            int[] array = new int[n];
+            Random rnd = new Random();
+            
+            Console.WriteLine("\nИсходный массив:");
+            for (int i = 0; i < n; i++)
+            {
+                array[i] = rnd.Next(1, 100);
+                Console.Write(array[i] + " ");
+            }
+            
+            m = m % n;
+            if (m < 0) m += n;
+            
+            int[] shifted = new int[n];
+            
+            for (int i = 0; i < n; i++)
+            {
+                int newIndex = (i + m) % n;
+                shifted[newIndex] = array[i];
+            }
+            
+            Console.WriteLine($"\n\nМассив после циклического сдвига вправо на {m}:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(shifted[i] + " ");
+            }
+            Console.WriteLine();
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
