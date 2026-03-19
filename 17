@@ -1,0 +1,72 @@
+using System;
+
+namespace Task17_CopyUntilCondition
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Задание 17. Копирование до первого элемента < 20";
+            
+            Console.Write("Введите длину массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            int[] original = new int[n];
+            Random rnd = new Random();
+            
+            Console.WriteLine("\nИсходный массив:");
+            for (int i = 0; i < n; i++)
+            {
+                original[i] = rnd.Next(5, 50);
+                Console.Write(original[i] + " ");
+                if ((i + 1) % 10 == 0) Console.WriteLine();
+            }
+            Console.WriteLine();
+            
+            int endIndex = -1;
+            for (int i = 0; i < n; i++)
+            {
+                if (original[i] < 20)
+                {
+                    endIndex = i;
+                    break;
+                }
+            }
+            
+            if (endIndex == -1)
+            {
+                Console.WriteLine("\nНет элементов меньше 20 - копируем весь массив");
+                int[] newArray = new int[n];
+                Array.Copy(original, newArray, n);
+                
+                Console.WriteLine("\nНовый массив (весь исходный):");
+                for (int i = 0; i < newArray.Length; i++)
+                {
+                    Console.Write(newArray[i] + " ");
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine($"\nПервый элемент < 20 находится на индексе {endIndex} (значение {original[endIndex]})");
+                
+                int[] newArray = new int[endIndex];
+                
+                for (int i = 0; i < endIndex; i++)
+                {
+                    newArray[i] = original[i];
+                }
+                
+                Console.WriteLine("\nНовый массив (элементы до первого < 20):");
+                for (int i = 0; i < newArray.Length; i++)
+                {
+                    Console.Write(newArray[i] + " ");
+                }
+                Console.WriteLine();
+            }
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
