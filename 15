@@ -1,0 +1,50 @@
+using System;
+
+namespace ArrayWithoutLastFour
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Работа 6. Массив без последних 4 элементов";
+            
+            Console.Write("Введите длину массива n (n > 4): ");
+            int n = int.Parse(Console.ReadLine());
+            
+            if (n <= 4)
+            {
+                Console.WriteLine("Ошибка: n должно быть больше 4");
+                Console.ReadKey();
+                return;
+            }
+            
+            int[] original = new int[n];
+            Random rnd = new Random();
+            
+            Console.WriteLine("\nИсходный массив:");
+            for (int i = 0; i < n; i++)
+            {
+                original[i] = rnd.Next(1, 100);
+                Console.Write(original[i] + " ");
+                if ((i + 1) % 10 == 0) Console.WriteLine();
+            }
+            
+            int[] newArray = new int[n - 4];
+            for (int i = 0; i < n - 4; i++)
+            {
+                newArray[i] = original[i];
+            }
+            
+            Console.WriteLine("\n\nНовый массив (без последних 4 элементов):");
+            for (int i = 0; i < newArray.Length; i++)
+            {
+                Console.Write(newArray[i] + " ");
+                if ((i + 1) % 10 == 0) Console.WriteLine();
+            }
+            Console.WriteLine();
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
