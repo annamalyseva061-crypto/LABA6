@@ -1,0 +1,434 @@
+using System;
+
+namespace ArrayTasks_5_1_to_5_15
+{
+    internal class Program
+    {
+        static int[] CreateArray(int n)
+        {
+            int[] array = new int[n];
+            Random rnd = new Random();
+            
+            for (int i = 0; i < n; i++)
+            {
+                array[i] = rnd.Next(-50, 101);
+            }
+            
+            return array;
+        }
+        
+        static void PrintArray(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write($"array[{i}] = {array[i]}");
+                if (i < array.Length - 1) Console.Write(", ");
+                if ((i + 1) % 5 == 0) Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+        
+        // 5.1. Найти сумму элементов с четными индексами
+        static int SumEvenIndex(int[] array)
+        {
+            int sum = 0;
+            for (int i = 0; i < array.Length; i += 2)
+            {
+                sum += array[i];
+            }
+            return sum;
+        }
+        
+        // 5.2. Найти минимальный элемент среди положительных элементов
+        static int? MinPositive(int[] array)
+        {
+            int? min = null;
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > 0)
+                {
+                    if (min == null || array[i] < min)
+                    {
+                        min = array[i];
+                    }
+                }
+            }
+            
+            return min;
+        }
+        
+        // 5.3. Найти сумму максимального и минимального элементов
+        static int SumMaxMin(int[] array)
+        {
+            if (array.Length == 0) return 0;
+            
+            int max = array[0];
+            int min = array[0];
+            
+            for (int i = 1; i < array.Length; i++)
+            {
+                if (array[i] > max) max = array[i];
+                if (array[i] < min) min = array[i];
+            }
+            
+            return max + min;
+        }
+        
+        // 5.4. Найти количество положительных элементов
+        static int CountPositive(int[] array)
+        {
+            int count = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > 0) count++;
+            }
+            return count;
+        }
+        
+        // 5.5. Определить сумму четных положительных элементов массива с индексами с a-го по b-й
+        static int SumEvenPositiveInRange(int[] array, int a, int b)
+        {
+            int sum = 0;
+            int start = Math.Max(0, a);
+            int end = Math.Min(array.Length - 1, b);
+            
+            for (int i = start; i <= end; i++)
+            {
+                if (array[i] > 0 && array[i] % 2 == 0)
+                {
+                    sum += array[i];
+                }
+            }
+            
+            return sum;
+        }
+        
+        // 5.6. Найти среднее значение чётных элементов
+        static double AverageEven(int[] array)
+        {
+            int sum = 0;
+            int count = 0;
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] % 2 == 0)
+                {
+                    sum += array[i];
+                    count++;
+                }
+            }
+            
+            return count > 0 ? (double)sum / count : 0;
+        }
+        
+        // 5.7. Определить сумму чётных положительных элементов массива
+        static int SumEvenPositive(int[] array)
+        {
+            int sum = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > 0 && array[i] % 2 == 0)
+                {
+                    sum += array[i];
+                }
+            }
+            return sum;
+        }
+        
+        // 5.8. Просуммировать все неотрицательные элементы, стоящие на четных местах
+        static int SumNonNegativeEvenIndex(int[] array)
+        {
+            int sum = 0;
+            for (int i = 0; i < array.Length; i += 2)
+            {
+                if (array[i] >= 0)
+                {
+                    sum += array[i];
+                }
+            }
+            return sum;
+        }
+        
+        // 5.9. Найти максимальный элемент среди элементов с a-го по b-й и его индекс
+        static (int max, int index) MaxInRange(int[] array, int a, int b)
+        {
+            int start = Math.Max(0, a);
+            int end = Math.Min(array.Length - 1, b);
+            
+            if (start > end)
+            {
+                return (int.MinValue, -1);
+            }
+            
+            int max = array[start];
+            int index = start;
+            
+            for (int i = start + 1; i <= end; i++)
+            {
+                if (array[i] > max)
+                {
+                    max = array[i];
+                    index = i;
+                }
+            }
+            
+            return (max, index);
+        }
+        
+        // 5.10. Найти минимальный элемент среди элементов, стоящих на четных позициях и его номер
+        static (int min, int index) MinEvenPosition(int[] array)
+        {
+            if (array.Length == 0)
+            {
+                return (int.MaxValue, -1);
+            }
+            
+            int min = array[0];
+            int index = 0;
+            
+            for (int i = 2; i < array.Length; i += 2)
+            {
+                if (array[i] < min)
+                {
+                    min = array[i];
+                    index = i;
+                }
+            }
+            
+            return (min, index);
+        }
+        
+        // 5.11. Найти минимальный элемент среди элементов массива с a-го по b-й и его индекс
+        static (int min, int index) MinInRange(int[] array, int a, int b)
+        {
+            int start = Math.Max(0, a);
+            int end = Math.Min(array.Length - 1, b);
+            
+            if (start > end)
+            {
+                return (int.MaxValue, -1);
+            }
+            
+            int min = array[start];
+            int index = start;
+            
+            for (int i = start + 1; i <= end; i++)
+            {
+                if (array[i] < min)
+                {
+                    min = array[i];
+                    index = i;
+                }
+            }
+            
+            return (min, index);
+        }
+        
+        // 5.12. Найти среднее арифметическое элементов с нечетными индексами
+        static double AverageOddIndex(int[] array)
+        {
+            int sum = 0;
+            int count = 0;
+            
+            for (int i = 1; i < array.Length; i += 2)
+            {
+                sum += array[i];
+                count++;
+            }
+            
+            return count > 0 ? (double)sum / count : 0;
+        }
+        
+        // 5.13. Найти среднее арифметическое элементов, не превышающих 50
+        static double AverageNotExceeding50(int[] array)
+        {
+            int sum = 0;
+            int count = 0;
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] <= 50)
+                {
+                    sum += array[i];
+                    count++;
+                }
+            }
+            
+            return count > 0 ? (double)sum / count : 0;
+        }
+        
+        // 5.14. Сформировать два массива: с четными и нечетными индексами
+        static (int[] evenIndex, int[] oddIndex) SplitByIndex(int[] array)
+        {
+            int evenCount = (array.Length + 1) / 2;
+            int oddCount = array.Length / 2;
+            
+            int[] evenIndex = new int[evenCount];
+            int[] oddIndex = new int[oddCount];
+            
+            int evenPos = 0;
+            int oddPos = 0;
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    evenIndex[evenPos] = array[i];
+                    evenPos++;
+                }
+                else
+                {
+                    oddIndex[oddPos] = array[i];
+                    oddPos++;
+                }
+            }
+            
+            return (evenIndex, oddIndex);
+        }
+        
+        // 5.15. Сформировать два массива: четные элементы с нечетными индексами и нечетные элементы с четными индексами
+        static (int[] evenElementOddIndex, int[] oddElementEvenIndex) SplitByCondition(int[] array)
+        {
+            int count1 = 0;
+            int count2 = 0;
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i % 2 != 0 && array[i] % 2 == 0)
+                    count1++;
+                if (i % 2 == 0 && array[i] % 2 != 0)
+                    count2++;
+            }
+            
+            int[] evenElementOddIndex = new int[count1];
+            int[] oddElementEvenIndex = new int[count2];
+            
+            int pos1 = 0;
+            int pos2 = 0;
+            
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i % 2 != 0 && array[i] % 2 == 0)
+                {
+                    evenElementOddIndex[pos1] = array[i];
+                    pos1++;
+                }
+                if (i % 2 == 0 && array[i] % 2 != 0)
+                {
+                    oddElementEvenIndex[pos2] = array[i];
+                    pos2++;
+                }
+            }
+            
+            return (evenElementOddIndex, oddElementEvenIndex);
+        }
+        
+        static void Main(string[] args)
+        {
+            Console.Title = "Работа 6. Задание 5 (пункты 5.1-5.15)";
+            
+            Console.Write("Введите размер массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            int[] array = CreateArray(n);
+            
+            Console.WriteLine("\nИсходный массив:");
+            PrintArray(array);
+            
+            Console.WriteLine("\n=== РЕЗУЛЬТАТЫ ===\n");
+            
+            // 5.1
+            Console.WriteLine($"5.1. Сумма элементов с четными индексами: {SumEvenIndex(array)}");
+            
+            // 5.2
+            int? minPos = MinPositive(array);
+            Console.WriteLine($"5.2. Минимальный положительный элемент: {(minPos.HasValue ? minPos.Value.ToString() : "нет положительных элементов")}");
+            
+            // 5.3
+            Console.WriteLine($"5.3. Сумма максимального и минимального элементов: {SumMaxMin(array)}");
+            
+            // 5.4
+            Console.WriteLine($"5.4. Количество положительных элементов: {CountPositive(array)}");
+            
+            // 5.5
+            Console.Write("\n5.5. Введите a и b (через пробел): ");
+            string[] input = Console.ReadLine().Split();
+            int a = int.Parse(input[0]);
+            int b = int.Parse(input[1]);
+            Console.WriteLine($"     Сумма четных положительных с индексами [{a}, {b}]: {SumEvenPositiveInRange(array, a, b)}");
+            
+            // 5.6
+            Console.WriteLine($"5.6. Среднее значение четных элементов: {AverageEven(array):F2}");
+            
+            // 5.7
+            Console.WriteLine($"5.7. Сумма четных положительных элементов: {SumEvenPositive(array)}");
+            
+            // 5.8
+            Console.WriteLine($"5.8. Сумма неотрицательных на четных местах: {SumNonNegativeEvenIndex(array)}");
+            
+            // 5.9
+            Console.Write("\n5.9. Введите a и b (через пробел): ");
+            input = Console.ReadLine().Split();
+            a = int.Parse(input[0]);
+            b = int.Parse(input[1]);
+            var maxInRange = MaxInRange(array, a, b);
+            if (maxInRange.index != -1)
+                Console.WriteLine($"     Максимальный элемент в диапазоне [{a}, {b}]: {maxInRange.max} (индекс {maxInRange.index})");
+            else
+                Console.WriteLine($"     Некорректный диапазон");
+            
+            // 5.10
+            var minEvenPos = MinEvenPosition(array);
+            Console.WriteLine($"5.10. Минимальный элемент на четных позициях: {minEvenPos.min} (индекс {minEvenPos.index})");
+            
+            // 5.11
+            Console.Write("\n5.11. Введите a и b (через пробел): ");
+            input = Console.ReadLine().Split();
+            a = int.Parse(input[0]);
+            b = int.Parse(input[1]);
+            var minInRange = MinInRange(array, a, b);
+            if (minInRange.index != -1)
+                Console.WriteLine($"     Минимальный элемент в диапазоне [{a}, {b}]: {minInRange.min} (индекс {minInRange.index})");
+            else
+                Console.WriteLine($"     Некорректный диапазон");
+            
+            // 5.12
+            Console.WriteLine($"\n5.12. Среднее арифметическое элементов с нечетными индексами: {AverageOddIndex(array):F2}");
+            
+            // 5.13
+            Console.WriteLine($"5.13. Среднее арифметическое элементов <= 50: {AverageNotExceeding50(array):F2}");
+            
+            // 5.14
+            var splitByIndex = SplitByIndex(array);
+            Console.WriteLine("\n5.14. Массив с четными индексами:");
+            for (int i = 0; i < splitByIndex.evenIndex.Length; i++)
+            {
+                Console.Write(splitByIndex.evenIndex[i] + " ");
+            }
+            Console.WriteLine("\n     Массив с нечетными индексами:");
+            for (int i = 0; i < splitByIndex.oddIndex.Length; i++)
+            {
+                Console.Write(splitByIndex.oddIndex[i] + " ");
+            }
+            Console.WriteLine();
+            
+            // 5.15
+            var splitByCondition = SplitByCondition(array);
+            Console.WriteLine("\n5.15. Четные элементы с нечетными индексами:");
+            for (int i = 0; i < splitByCondition.evenElementOddIndex.Length; i++)
+            {
+                Console.Write(splitByCondition.evenElementOddIndex[i] + " ");
+            }
+            Console.WriteLine("\n     Нечетные элементы с четными индексами:");
+            for (int i = 0; i < splitByCondition.oddElementEvenIndex.Length; i++)
+            {
+                Console.Write(splitByCondition.oddElementEvenIndex[i] + " ");
+            }
+            Console.WriteLine();
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
