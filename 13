@@ -1,0 +1,47 @@
+using System;
+
+namespace ArraySquares
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Работа 6. Квадраты элементов";
+            
+            Console.Write("Введите длину массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            int[] original = new int[n];
+            Random rnd = new Random();
+            
+            Console.WriteLine("\nИсходный массив:");
+            for (int i = 0; i < n; i++)
+            {
+                original[i] = rnd.Next(1, 20);
+                Console.Write(original[i] + " ");
+            }
+            
+            int[] squares = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                squares[i] = original[i] * original[i];
+            }
+            
+            Console.WriteLine("\n\nМассив квадратов:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(squares[i] + " ");
+            }
+            Console.WriteLine();
+            
+            Console.WriteLine("\nИсходный элемент -> Квадрат:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine($"{original[i]} -> {squares[i]}");
+            }
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
