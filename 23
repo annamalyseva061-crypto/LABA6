@@ -1,0 +1,133 @@
+using System;
+
+namespace Task23_SpecialSorting
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Задание 23. Сортировка по специальным критериям";
+            
+            Console.Write("Введите длину массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            int[] array = new int[n];
+            Random rnd = new Random();
+            
+            for (int i = 0; i < n; i++)
+            {
+                array[i] = rnd.Next(1, 1000);
+            }
+            
+            Console.WriteLine("\nИсходный массив:");
+            PrintArray(array);
+            
+            // 23.1 Сортировка по сумме цифр
+            int[] sumDigitsArray = new int[n];
+            Array.Copy(array, sumDigitsArray, n);
+            
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (SumDigits(sumDigitsArray[j]) > SumDigits(sumDigitsArray[j + 1]))
+                    {
+                        int temp = sumDigitsArray[j];
+                        sumDigitsArray[j] = sumDigitsArray[j + 1];
+                        sumDigitsArray[j + 1] = temp;
+                    }
+                }
+            }
+            
+            Console.WriteLine("\n23.1 Сортировка по сумме цифр:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write($"{sumDigitsArray[i]}({SumDigits(sumDigitsArray[i])}) ");
+            }
+            Console.WriteLine();
+            
+            // 23.2 Сортировка по последней цифре
+            int[] lastDigitArray = new int[n];
+            Array.Copy(array, lastDigitArray, n);
+            
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (lastDigitArray[j] % 10 > lastDigitArray[j + 1] % 10)
+                    {
+                        int temp = lastDigitArray[j];
+                        lastDigitArray[j] = lastDigitArray[j + 1];
+                        lastDigitArray[j + 1] = temp;
+                    }
+                }
+            }
+            
+            Console.WriteLine("\n23.2 Сортировка по последней цифре:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write($"{lastDigitArray[i]}({lastDigitArray[i] % 10}) ");
+            }
+            Console.WriteLine();
+            
+            // 23.3 Сортировка по первой цифре
+            int[] firstDigitArray = new int[n];
+            Array.Copy(array, firstDigitArray, n);
+            
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (FirstDigit(firstDigitArray[j]) > FirstDigit(firstDigitArray[j + 1]))
+                    {
+                        int temp = firstDigitArray[j];
+                        firstDigitArray[j] = firstDigitArray[j + 1];
+                        firstDigitArray[j + 1] = temp;
+                    }
+                }
+            }
+            
+            Console.WriteLine("\n23.3 Сортировка по первой цифре:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write($"{firstDigitArray[i]}({FirstDigit(firstDigitArray[i])}) ");
+            }
+            Console.WriteLine();
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+        
+        static void PrintArray(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i] + " ");
+                if ((i + 1) % 10 == 0) Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+        
+        static int SumDigits(int num)
+        {
+            int sum = 0;
+            num = Math.Abs(num);
+            while (num > 0)
+            {
+                sum += num % 10;
+                num /= 10;
+            }
+            return sum;
+        }
+        
+        static int FirstDigit(int num)
+        {
+            num = Math.Abs(num);
+            while (num >= 10)
+            {
+                num /= 10;
+            }
+            return num;
+        }
+    }
+}
