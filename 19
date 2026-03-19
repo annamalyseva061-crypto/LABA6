@@ -1,0 +1,175 @@
+using System;
+
+namespace Task19_TwoArraysOperations
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Задание 19. Операции с двумя массивами";
+            
+            Random rnd = new Random();
+            
+            Console.Write("Введите размер массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            Console.Write("Введите размер массива m: ");
+            int m = int.Parse(Console.ReadLine());
+            
+            int[] arrN = new int[n];
+            int[] arrM = new int[m];
+            
+            Console.WriteLine("\nМассив N:");
+            for (int i = 0; i < n; i++)
+            {
+                arrN[i] = rnd.Next(1, 15);
+                Console.Write(arrN[i] + " ");
+            }
+            
+            Console.WriteLine("\n\nМассив M:");
+            for (int i = 0; i < m; i++)
+            {
+                arrM[i] = rnd.Next(1, 15);
+                Console.Write(arrM[i] + " ");
+            }
+            Console.WriteLine();
+            
+            // 19.1 Элементы из N, которых нет в M
+            int[] temp1 = new int[n];
+            int count1 = 0;
+            
+            for (int i = 0; i < n; i++)
+            {
+                bool found = false;
+                for (int j = 0; j < m; j++)
+                {
+                    if (arrN[i] == arrM[j])
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found)
+                {
+                    temp1[count1] = arrN[i];
+                    count1++;
+                }
+            }
+            
+            int[] inNnotM = new int[count1];
+            for (int i = 0; i < count1; i++)
+            {
+                inNnotM[i] = temp1[i];
+            }
+            
+            Console.WriteLine("\n19.1. Элементы из N, которых нет в M:");
+            for (int i = 0; i < inNnotM.Length; i++)
+            {
+                Console.Write(inNnotM[i] + " ");
+            }
+            Console.WriteLine();
+            
+            // 19.2 Элементы, присутствующие в обоих массивах
+            int[] temp2 = new int[Math.Min(n, m)];
+            int count2 = 0;
+            
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (arrN[i] == arrM[j])
+                    {
+                        bool alreadyAdded = false;
+                        for (int k = 0; k < count2; k++)
+                        {
+                            if (temp2[k] == arrN[i])
+                            {
+                                alreadyAdded = true;
+                                break;
+                            }
+                        }
+                        
+                        if (!alreadyAdded)
+                        {
+                            temp2[count2] = arrN[i];
+                            count2++;
+                        }
+                        break;
+                    }
+                }
+            }
+            
+            int[] intersection = new int[count2];
+            for (int i = 0; i < count2; i++)
+            {
+                intersection[i] = temp2[i];
+            }
+            
+            Console.WriteLine("\n19.2. Элементы, присутствующие в обоих массивах:");
+            for (int i = 0; i < intersection.Length; i++)
+            {
+                Console.Write(intersection[i] + " ");
+            }
+            Console.WriteLine();
+            
+            // 19.3 Элементы из обоих массивов, исключая общие
+            int[] temp3 = new int[n + m];
+            int count3 = 0;
+            
+            for (int i = 0; i < n; i++)
+            {
+                bool common = false;
+                for (int j = 0; j < m; j++)
+                {
+                    if (arrN[i] == arrM[j])
+                    {
+                        common = true;
+                        break;
+                    }
+                }
+                
+                if (!common)
+                {
+                    temp3[count3] = arrN[i];
+                    count3++;
+                }
+            }
+            
+            for (int i = 0; i < m; i++)
+            {
+                bool common = false;
+                for (int j = 0; j < n; j++)
+                {
+                    if (arrM[i] == arrN[j])
+                    {
+                        common = true;
+                        break;
+                    }
+                }
+                
+                if (!common)
+                {
+                    temp3[count3] = arrM[i];
+                    count3++;
+                }
+            }
+            
+            int[] symmetricDiff = new int[count3];
+            for (int i = 0; i < count3; i++)
+            {
+                symmetricDiff[i] = temp3[i];
+            }
+            
+            Console.WriteLine("\n19.3. Элементы из обоих массивов, исключая общие:");
+            for (int i = 0; i < symmetricDiff.Length; i++)
+            {
+                Console.Write(symmetricDiff[i] + " ");
+            }
+            Console.WriteLine();
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
