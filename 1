@@ -1,0 +1,55 @@
+using System;
+
+namespace ArrayExamples
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Работа 6. Примеры работы с массивами";
+            
+            // Задача 1: Массив четных чисел
+            Console.WriteLine("=== Задача 1: Массив четных чисел ===");
+            int[] evenArray = new int[50];
+            
+            for (int i = 0; i < evenArray.Length; i++)
+            {
+                evenArray[i] = (i + 1) * 2;
+            }
+            
+            Console.WriteLine("Первые 10 элементов массива четных чисел:");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write(evenArray[i] + " ");
+            }
+            Console.WriteLine($"\nДлина массива: {evenArray.Length}");
+            
+            // Задача 2: Сумма четных элементов
+            Console.WriteLine("\n=== Задача 2: Сумма четных элементов ===");
+            int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            
+            Console.WriteLine("Массив:");
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i] + " ");
+            }
+            
+            int sumEven = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] % 2 == 0)
+                {
+                    sumEven += array[i];
+                }
+            }
+            
+            Console.WriteLine($"\nСумма четных элементов: {sumEven}");
+            
+            // Демонстрация свойства Length
+            Console.WriteLine($"\nДлина массива: {array.Length}");
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
