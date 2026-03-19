@@ -1,0 +1,41 @@
+using System;
+
+namespace ArrayPrices
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Работа 6. Цены на товары";
+            
+            int[] prices = new int[15];
+            Random rnd = new Random();
+            
+            Console.WriteLine("Цены на товары:");
+            for (int i = 0; i < prices.Length; i++)
+            {
+                prices[i] = rnd.Next(20, 301);
+                Console.Write($"{prices[i]} ");
+                if ((i + 1) % 5 == 0) Console.WriteLine();
+            }
+            
+            int minPrice = prices[0];
+            int minIndex = 0;
+            
+            for (int i = 1; i < prices.Length; i++)
+            {
+                if (prices[i] < minPrice)
+                {
+                    minPrice = prices[i];
+                    minIndex = i;
+                }
+            }
+            
+            Console.WriteLine($"\nСамый дешевый товар: {minPrice} руб.");
+            Console.WriteLine($"Порядковый номер: {minIndex + 1}");
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
