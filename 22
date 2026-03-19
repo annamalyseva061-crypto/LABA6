@@ -1,0 +1,125 @@
+using System;
+
+namespace Task22_SortingMethods
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Задание 22. Сортировка массива";
+            
+            Console.Write("Введите длину массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            int[] array = new int[n];
+            Random rnd = new Random();
+            
+            for (int i = 0; i < n; i++)
+            {
+                array[i] = rnd.Next(1, 100);
+            }
+            
+            // 22.1 Пузырьковая сортировка
+            int[] bubbleArray = new int[n];
+            Array.Copy(array, bubbleArray, n);
+            
+            Console.WriteLine("\nИсходный массив:");
+            PrintArray(array);
+            
+            // Пузырьковая сортировка
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (bubbleArray[j] > bubbleArray[j + 1])
+                    {
+                        int temp = bubbleArray[j];
+                        bubbleArray[j] = bubbleArray[j + 1];
+                        bubbleArray[j + 1] = temp;
+                    }
+                }
+            }
+            
+            Console.WriteLine("\n22.1 Пузырьковая сортировка:");
+            PrintArray(bubbleArray);
+            
+            // 22.2 Сортировка выбором
+            int[] selectionArray = new int[n];
+            Array.Copy(array, selectionArray, n);
+            
+            for (int i = 0; i < n - 1; i++)
+            {
+                int minIndex = i;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (selectionArray[j] < selectionArray[minIndex])
+                    {
+                        minIndex = j;
+                    }
+                }
+                
+                int temp = selectionArray[i];
+                selectionArray[i] = selectionArray[minIndex];
+                selectionArray[minIndex] = temp;
+            }
+            
+            Console.WriteLine("\n22.2 Сортировка выбором:");
+            PrintArray(selectionArray);
+            
+            // 22.3 Быстрая сортировка
+            int[] quickArray = new int[n];
+            Array.Copy(array, quickArray, n);
+            
+            QuickSort(quickArray, 0, n - 1);
+            
+            Console.WriteLine("\n22.3 Быстрая сортировка:");
+            PrintArray(quickArray);
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+        
+        static void PrintArray(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i] + " ");
+                if ((i + 1) % 15 == 0) Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+        
+        static void QuickSort(int[] array, int left, int right)
+        {
+            if (left < right)
+            {
+                int pivot = Partition(array, left, right);
+                QuickSort(array, left, pivot - 1);
+                QuickSort(array, pivot + 1, right);
+            }
+        }
+        
+        static int Partition(int[] array, int left, int right)
+        {
+            int pivot = array[right];
+            int i = left - 1;
+            
+            for (int j = left; j < right; j++)
+            {
+                if (array[j] < pivot)
+                {
+                    i++;
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+            
+            int temp1 = array[i + 1];
+            array[i + 1] = array[right];
+            array[right] = temp1;
+            
+            return i + 1;
+        }
+    }
+}
