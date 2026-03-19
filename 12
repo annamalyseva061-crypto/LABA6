@@ -1,0 +1,61 @@
+using System;
+
+namespace ArrayEvenIntegers
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Работа 6. Массив из четных целых чисел";
+            
+            Console.Write("Введите длину массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            int[] array = new int[n];
+            Random rnd = new Random();
+            
+            Console.WriteLine("\nСгенерированный массив:");
+            for (int i = 0; i < n; i++)
+            {
+                array[i] = rnd.Next(1, 100);
+                Console.Write(array[i] + " ");
+            }
+            
+            bool allEven = true;
+            for (int i = 0; i < n; i++)
+            {
+                if (array[i] % 2 != 0)
+                {
+                    allEven = false;
+                    break;
+                }
+            }
+            
+            if (allEven)
+            {
+                Console.WriteLine("\n\nВсе элементы уже четные");
+            }
+            else
+            {
+                int[] evenArray = new int[n];
+                for (int i = 0; i < n; i++)
+                {
+                    if (array[i] % 2 == 0)
+                        evenArray[i] = array[i];
+                    else
+                        evenArray[i] = array[i] + 1;
+                }
+                
+                Console.WriteLine("\n\nНовый массив (все элементы четные):");
+                for (int i = 0; i < n; i++)
+                {
+                    Console.Write(evenArray[i] + " ");
+                }
+                Console.WriteLine();
+            }
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
