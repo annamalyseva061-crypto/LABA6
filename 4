@@ -1,0 +1,52 @@
+using System;
+
+namespace ArrayAverageOddPositive
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Работа 6. Среднее нечетных положительных";
+            
+            int[] array = new int[17];
+            Random rnd = new Random();
+            
+            Console.WriteLine("Сгенерированный массив:");
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = rnd.Next(-20, 30);
+                Console.Write(array[i] + " ");
+                if ((i + 1) % 10 == 0) Console.WriteLine();
+            }
+            
+            int sum = 0;
+            int count = 0;
+            
+            Console.WriteLine("\n\nНечетные положительные элементы:");
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > 0 && array[i] % 2 != 0)
+                {
+                    Console.Write(array[i] + " ");
+                    sum += array[i];
+                    count++;
+                }
+            }
+            
+            if (count > 0)
+            {
+                double average = (double)sum / count;
+                Console.WriteLine($"\n\nСумма: {sum}");
+                Console.WriteLine($"Количество: {count}");
+                Console.WriteLine($"Среднее значение: {average:F2}");
+            }
+            else
+            {
+                Console.WriteLine("\n\nНечетных положительных элементов нет");
+            }
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
