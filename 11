@@ -1,0 +1,54 @@
+using System;
+
+namespace ArrayWithoutOdd
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = "Работа 6. Массив без нечетных элементов";
+            
+            Console.Write("Введите длину массива n: ");
+            int n = int.Parse(Console.ReadLine());
+            
+            int[] original = new int[n];
+            Random rnd = new Random();
+            
+            Console.WriteLine("\nИсходный массив:");
+            for (int i = 0; i < n; i++)
+            {
+                original[i] = rnd.Next(1, 100);
+                Console.Write(original[i] + " ");
+            }
+            
+            int evenCount = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (original[i] % 2 == 0)
+                    evenCount++;
+            }
+            
+            int[] evenArray = new int[evenCount];
+            int index = 0;
+            
+            for (int i = 0; i < n; i++)
+            {
+                if (original[i] % 2 == 0)
+                {
+                    evenArray[index] = original[i];
+                    index++;
+                }
+            }
+            
+            Console.WriteLine("\n\nНовый массив (только четные элементы):");
+            for (int i = 0; i < evenArray.Length; i++)
+            {
+                Console.Write(evenArray[i] + " ");
+            }
+            Console.WriteLine();
+            
+            Console.Write("\nНажми любую клавишу...");
+            Console.ReadKey();
+        }
+    }
+}
